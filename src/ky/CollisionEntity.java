@@ -148,8 +148,8 @@ public class CollisionEntity extends Entity {
 	
 	public CollisionEntity clone() {
 		CollisionEntity clone = new CollisionEntity(getPos().clone(), (int) getCollisionBox().getWidth(), (int) getCollisionBox().getHeight(), getLayer(), getName());
-		for(Asset[] layers : getAssetLayers()) {
-			for(Asset a : layers) {
+		for(Sprite[] layers : getAssetLayers()) {
+			for(Sprite a : layers) {
 				clone.add(a.clone());
 			}
 		}

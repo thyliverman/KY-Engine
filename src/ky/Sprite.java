@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Asset {
+public class Sprite {
 
 	public static BufferedImage readImage(String filename) {
 		BufferedImage image = null;
@@ -59,7 +59,7 @@ public class Asset {
 	private boolean debugVisual; // to render outline of width and height
 	
 	
-	public Asset(BufferedImage image, Vector2D position, int layer) {
+	public Sprite(BufferedImage image, Vector2D position, int layer) {
 		this.images = new BufferedImage[] {image};
 		this.originalImages = new BufferedImage[] {image};
 		this.position = position;
@@ -70,7 +70,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage image, Vector2D position, int width, int height, int layer) {
+	public Sprite(BufferedImage image, Vector2D position, int width, int height, int layer) {
 		this.images = new BufferedImage[] {image};
 		this.originalImages = new BufferedImage[] {image};
 		this.position = position;
@@ -81,7 +81,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage image, Vector2D position, int layer, String name) {
+	public Sprite(BufferedImage image, Vector2D position, int layer, String name) {
 		this.name = name;
 		this.images = new BufferedImage[] {image};
 		this.originalImages = new BufferedImage[] {image};
@@ -93,7 +93,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage image, Vector2D position, int width, int height, int layer, String name) {
+	public Sprite(BufferedImage image, Vector2D position, int width, int height, int layer, String name) {
 		this.name = name;
 		this.images = new BufferedImage[] {image};
 		this.originalImages = new BufferedImage[] {image};
@@ -105,7 +105,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage[] images, Vector2D position, int layer) {
+	public Sprite(BufferedImage[] images, Vector2D position, int layer) {
 		this.images = images;
 		this.originalImages = images;
 		this.position = position;
@@ -116,7 +116,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage[] images, Vector2D position, int width, int height, int layer) {
+	public Sprite(BufferedImage[] images, Vector2D position, int width, int height, int layer) {
 		this.images = images;
 		this.originalImages = images;
 		this.position = position;
@@ -127,7 +127,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage[] images, Vector2D position, int layer, String name) {
+	public Sprite(BufferedImage[] images, Vector2D position, int layer, String name) {
 		this.name = name;
 		this.images = images;
 		this.originalImages = images;
@@ -139,7 +139,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(BufferedImage[] images, Vector2D position, int width, int height, int layer, String name) {
+	public Sprite(BufferedImage[] images, Vector2D position, int width, int height, int layer, String name) {
 		this.name = name;
 		this.images = images;
 		this.originalImages = images;
@@ -151,7 +151,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String filename, Vector2D position, int layer) {
+	public Sprite(String filename, Vector2D position, int layer) {
 		this.images = new BufferedImage[] {readImage(filename)};
 		this.originalImages = this.images.clone();
 		this.position = position;
@@ -162,7 +162,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String filename, Vector2D position, int width, int height, int layer) {
+	public Sprite(String filename, Vector2D position, int width, int height, int layer) {
 		this.images = new BufferedImage[] {readImage(filename)};
 		this.originalImages = this.images.clone();
 		this.position = position;
@@ -173,7 +173,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String filename, Vector2D position, int layer, String name) {
+	public Sprite(String filename, Vector2D position, int layer, String name) {
 		this.name = name;
 		this.images = new BufferedImage[] {readImage(filename)};
 		this.originalImages = this.images.clone();
@@ -185,7 +185,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String filename, Vector2D position, int width, int height, int layer, String name) {
+	public Sprite(String filename, Vector2D position, int width, int height, int layer, String name) {
 		this.name = name;
 		this.images = new BufferedImage[] {readImage(filename)};
 		this.originalImages = this.images.clone();
@@ -197,7 +197,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String[] filenames, Vector2D position, int layer) {
+	public Sprite(String[] filenames, Vector2D position, int layer) {
 		this.images = readImage(filenames);
 		this.originalImages = this.images.clone();
 		this.position = position;
@@ -208,7 +208,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String[] filenames, Vector2D position, int width, int height, int layer) {
+	public Sprite(String[] filenames, Vector2D position, int width, int height, int layer) {
 		this.images = readImage(filenames);
 		this.originalImages = this.images.clone();
 		this.position = position;
@@ -219,7 +219,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String[] filenames, Vector2D position, int layer, String name) {
+	public Sprite(String[] filenames, Vector2D position, int layer, String name) {
 		this.name = name;
 		this.images = readImage(filenames);
 		this.originalImages = this.images.clone();
@@ -231,7 +231,7 @@ public class Asset {
 		this.layer = layer;
 	}
 	
-	public Asset(String[] filenames, Vector2D position, int width, int height, int layer, String name) {
+	public Sprite(String[] filenames, Vector2D position, int width, int height, int layer, String name) {
 		this.name = name;
 		this.images = readImage(filenames);
 		this.originalImages = this.images.clone();
@@ -348,8 +348,8 @@ public class Asset {
 	}
 	
 	
-	public Asset clone() {
-		Asset clone = new Asset(getImages().clone(), getPos().clone(), getWidth(), getHeight(), getLayer(), getName());
+	public Sprite clone() {
+		Sprite clone = new Sprite(getImages().clone(), getPos().clone(), getWidth(), getHeight(), getLayer(), getName());
 		clone.setVisible(isVisible());
 		clone.setImageIndex(getImageIndex());
 		return clone; 

@@ -16,7 +16,7 @@ public abstract class KYscreen extends JFrame {
 	private static final long serialVersionUID = 1897229948652321731L;
 
 
-	private ArrayList<ArrayList<Asset>> assetLayers = new ArrayList<ArrayList<Asset>>(); // this is a collection of arraylists, which are layers
+	private ArrayList<ArrayList<Sprite>> assetLayers = new ArrayList<ArrayList<Sprite>>(); // this is a collection of arraylists, which are layers
 																								// assets within layers do not have render priorities
 	   																							// between them
 	private ArrayList<ArrayList<Entity>> entityLayers = new ArrayList<ArrayList<Entity>>(); // holds all the entities to be rendered
@@ -31,10 +31,10 @@ public abstract class KYscreen extends JFrame {
 		return converted;
 	}
 	
-	public Asset[][] getAssetLayers(){ // gets all assets whilst keeping the layers
-		Asset[][] converted = new Asset[assetLayers.size()][];
+	public Sprite[][] getAssetLayers(){ // gets all assets whilst keeping the layers
+		Sprite[][] converted = new Sprite[assetLayers.size()][];
 		for(int i = 0; i < assetLayers.size(); i++) {
-			converted[i] = assetLayers.get(i).toArray(new Asset[assetLayers.get(i).size()]);
+			converted[i] = assetLayers.get(i).toArray(new Sprite[assetLayers.get(i).size()]);
 		}
 		return converted;
 	}
@@ -63,7 +63,7 @@ public abstract class KYscreen extends JFrame {
 	
 	private ArrayList<Integer> activeKeyCodes = new ArrayList<Integer>();
 	
-	public KYscreen(int width, int height, boolean resizable) {
+	public KYscreen(int width, int height, String windowTitle, boolean resizable, int FPScap) {
 		this.getContentPane().setPreferredSize(new Dimension(width, height));
 		this.pack();
 		
@@ -74,24 +74,8 @@ public abstract class KYscreen extends JFrame {
 		this.setResizable(resizable);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		referenceTime = System.currentTimeMillis();
+		this.setTitle(windowTitle);
 		
-		start();
-		run();
-	}
-	
-	public KYscreen(int width, int height, boolean resizable, int FPScap) {
-		this.getContentPane().setPreferredSize(new Dimension(width, height));
-		this.pack();
-
-		//this.windowOffset = new Dimension(this.getWidth() - this.getContentPane().getWidth(), this.getHeight() - this.getContentPane().getHeight());
-		//System.out.println(windowOffset.height);
-		
-		this.addKeyListener(keyListener);
-		this.addMouseListener(mouseListener);
-		this.setResizable(resizable);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		if (FPScap > 0) {
 			mspf = (double) 1000 / FPScap;
 		}
@@ -100,11 +84,7 @@ public abstract class KYscreen extends JFrame {
 		}
 		referenceTime = System.currentTimeMillis();
 		
-		
-		start();
-		run();
-	}
-	
+	}	
 	public abstract void start();
 	
 	public abstract void update();
@@ -122,7 +102,7 @@ public abstract class KYscreen extends JFrame {
 		}
 	}
 	
-	private void run() {
+	protected void run() {
 		while(isVisible()) {
 			if(System.currentTimeMillis() - referenceTime > mspf) {
 				deltaT = (double) (System.currentTimeMillis() - referenceTime) / 1000;
@@ -145,7 +125,7 @@ public abstract class KYscreen extends JFrame {
 		offg = offscreen.getGraphics();
 
 		Entity[][] allEntities = getEntityLayers();	// retrieve all our entities
-		Asset[][] allAssets = getAssetLayers();		// retrieve all our assets
+		Sprite[][] allAssets = getAssetLayers();		// retrieve all our assets
 		boolean renderAssets = true;
 		boolean renderEntities = true;
 		int i = 0;										// this acts as the index for the layers, goes through all the layers to render
@@ -156,8 +136,8 @@ public abstract class KYscreen extends JFrame {
 				if(allEntities[i].length != 0) {		// if entity layer is not empty
 					for(Entity e : allEntities[i]) {
 						if(e.isVisible()) {
-							for(Asset[] assetLayer : e.getAssetLayers()) {
-								for(Asset a : assetLayer) {
+							for(Sprite[] assetLayer : e.getAssetLayers()) {
+								for(Sprite a : assetLayer) {
 									if(a.isVisible()) {
 										int renderXPos = (int) Math.round(a.getX() - (double) a.getWidth()/2 + e.getX() - getCameraPos().getX());
 										int renderYPos = (int) Math.round(a.getY() - (double) a.getHeight()/2 + e.getY() - getCameraPos().getY());
@@ -192,7 +172,7 @@ public abstract class KYscreen extends JFrame {
 			
 			if(i < allAssets.length) {
 				if(allAssets[i].length != 0) {			// if asset layer is not empty
-					for(Asset a : allAssets[i]) {
+					for(Sprite a : allAssets[i]) {
 						
 						if(a.isVisible()) {
 							if(a instanceof Text) {
@@ -231,11 +211,11 @@ public abstract class KYscreen extends JFrame {
 		return this.cameraPos;
 	}
 	
-	public void add(Asset asset) {
+	public void add(Sprite asset) {
 		int difference = asset.getLayer() + 1 - assetLayers.size();// check if the indicated layer exists or not
 		if(difference > 0) { 							// if difference is greater than 0,
 			for(int i = 0; i < difference; i++) {		// there needs to be filler layers to reach the indicated layer
-				assetLayers.add(new ArrayList<Asset>());
+				assetLayers.add(new ArrayList<Sprite>());
 			}
 		}
 		if(!assetLayers.get(asset.getLayer()).contains(asset)) { // add to layer
@@ -307,7 +287,6 @@ public abstract class KYscreen extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
 		}
 		@Override
 		public void mousePressed(MouseEvent arg0) {

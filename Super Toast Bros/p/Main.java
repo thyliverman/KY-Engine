@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 
-import ky.AnimationAsset;
-import ky.Asset;
+import ky.AnimatedSprite;
+import ky.Sprite;
 import ky.CollisionEntity;
 import ky.Entity;
 import ky.KYscreen;
@@ -15,25 +15,25 @@ import ky.Vector2D;
 public class Main extends KYscreen {
 	private static final long serialVersionUID = 1L;
 
-
-	
 	public Main(int width, int height, boolean resizable, int FPScap) {
-		super(width, height, resizable, FPScap);
+		super(width, height, "Video gaming", resizable, FPScap);
 	}
 
 	public static void main(String[] args) {
-		new Main(1600, 900, false, 120);
+		Main m = new Main(1600, 900, false, 120);
+		m.start();
+		m.run();
 	}
 
 	CollisionEntity nyaentity;
 	Player player;
 	CollisionEntity ground;
 	
-	Asset background;
-	Asset background2;
-	Asset background3;
-	Asset background4;
-	AnimationAsset nya;
+	Sprite background;
+	Sprite background2;
+	Sprite background3;
+	Sprite background4;
+	AnimatedSprite nya;
 	
 	double startTime;
 	Text timer;
@@ -46,7 +46,7 @@ public class Main extends KYscreen {
 	public void start() {
 		
 		String[] group = {"SuperToastBrosAssets/nya.png","SuperToastBrosAssets/ichi.png","SuperToastBrosAssets/ni.png","SuperToastBrosAssets/san.png", "SuperToastBrosAssets/nya.png", "SuperToastBrosAssets/arigatou.png"};
-		nya = new AnimationAsset(group, new Vector2D(0, 0), 1, 0, "nya");
+		nya = new AnimatedSprite(group, new Vector2D(0, 0), 1, 0, "nya");
 		nya.rescale(0.28);
 		nya.setVisible(true);
 		
@@ -112,9 +112,7 @@ public class Main extends KYscreen {
 		player = new Player();
 		add(player);
 		
-		
-		
-		background = new Asset("SuperToastBrosAssets/background.png", new Vector2D(0, 100), 0);
+		background = new Sprite("SuperToastBrosAssets/background.png", new Vector2D(0, 100), 0);
 		background.setPos(400, 500);
 		background.rescale(2);
 		background.setVisible(true);
@@ -153,7 +151,7 @@ public class Main extends KYscreen {
 		if(getKeyStatus(KeyEvent.VK_RIGHT)) {
 			nyaentity.addVel(1 * 1000, 0);
 		}*/
-		if(getKeyStatus(KeyEvent.VK_NUMPAD0)) {
+		if(getKeyStatus(KeyEvent.VK_J)) {
 			nya.animate();
 		}
 		
@@ -162,8 +160,8 @@ public class Main extends KYscreen {
 			Entity[][] a = getEntityLayers();
 			for(Entity[] b : a) {
 				for(Entity c : b) {
-					for(Asset[] d : c.getAssetLayers()) {
-						for(Asset e : d) {
+					for(Sprite[] d : c.getAssetLayers()) {
+						for(Sprite e : d) {
 							e.rescale(2);
 						}
 					}
@@ -175,8 +173,8 @@ public class Main extends KYscreen {
 			Entity[][] a = getEntityLayers();
 			for(Entity[] b : a) {
 				for(Entity c : b) {
-					for(Asset[] d : c.getAssetLayers()) {
-						for(Asset e : d) {
+					for(Sprite[] d : c.getAssetLayers()) {
+						for(Sprite e : d) {
 							e.rescale(0.5);
 						}
 					}

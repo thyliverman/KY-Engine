@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class Text extends Asset {
+public class Text extends Sprite {
+	
+	public static Font DEFAULT_FONT = new Font("Arial", Font.BOLD, 18);
 	
 	private String text;
 	private Font font;

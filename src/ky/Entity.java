@@ -14,7 +14,7 @@ public class Entity {
 	private String name = "";
 	private boolean visible = false;
 	private int layer;
-	private ArrayList<ArrayList<Asset>> entityAssetLayers = new ArrayList<ArrayList<Asset>>(); // assets of entity (no render order)
+	private ArrayList<ArrayList<Sprite>> entityAssetLayers = new ArrayList<ArrayList<Sprite>>(); // assets of entity (no render order)
 	
 	
 	public Entity(double x, double y, int layer) {
@@ -52,11 +52,11 @@ public class Entity {
 		return this.layer;
 	}
 	
-	public void add(Asset asset) {
+	public void add(Sprite asset) {
 		int difference = asset.getLayer() + 1 - entityAssetLayers.size();// check if the indicated layer exists or not
 		if(difference > 0) { 							// if difference is greater than 0,
 			for(int i = 0; i < difference; i++) {		// there needs to be filler layers to reach the indicated layer
-				entityAssetLayers.add(new ArrayList<Asset>());
+				entityAssetLayers.add(new ArrayList<Sprite>());
 			}
 		}
 		if(!entityAssetLayers.get(asset.getLayer()).contains(asset)) { // add to layer
@@ -77,10 +77,10 @@ public class Entity {
 	}
 	*/
 	
-	public Asset[][] getAssetLayers() {
-		Asset[][] converted = new Asset[entityAssetLayers.size()][];
+	public Sprite[][] getAssetLayers() {
+		Sprite[][] converted = new Sprite[entityAssetLayers.size()][];
 		for(int i = 0; i < entityAssetLayers.size(); i++) {
-			converted[i] = entityAssetLayers.get(i).toArray(new Asset[entityAssetLayers.get(i).size()]);
+			converted[i] = entityAssetLayers.get(i).toArray(new Sprite[entityAssetLayers.get(i).size()]);
 		}
 		return converted;
 	}
@@ -139,8 +139,8 @@ public class Entity {
 	
 	public Entity clone() {
 		Entity clone = new Entity(getPos().clone(), getLayer(), getName());
-		for(Asset[] layers : getAssetLayers()) {
-			for(Asset a : layers) {
+		for(Sprite[] layers : getAssetLayers()) {
+			for(Sprite a : layers) {
 				clone.add(a.clone());
 			}
 		}
