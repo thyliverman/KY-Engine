@@ -48,7 +48,8 @@ public class Sprite {
 	
 	private Vector2D position;
 	private int width, height;
-	private int originalWidth, originalHeight;
+	private final int originalWidth;
+	private final int originalHeight;
 	private double rotation = 0; // in degrees
 	protected BufferedImage[] images = null; // sprite(s) of asset
 	private BufferedImage[] originalImages = null;
@@ -56,6 +57,7 @@ public class Sprite {
 	private boolean visible = false; // if asset will be rendered
 	private int imageIndex = 0;
 	private int layer = 0;
+	private double scale;
 	private boolean debugVisual; // to render outline of width and height
 	
 	
@@ -279,10 +281,21 @@ public class Sprite {
 
 	
 	public void rescale(double factor) {
-		this.width *= factor;
-		this.height *= factor;
+		setScale(factor); // temp fix, need to bug test
 	}
-	
+
+	public void setScale(double factor) {
+		this.width = (int)(originalWidth * factor);
+		this.height = (int)(originalHeight * factor);
+		this.scale = factor;
+	}
+
+	public void setScale(Vector2D scale) {
+		this.width = (int)(originalWidth * scale.getX());
+		this.height = (int)(originalHeight * scale.getY());
+		this.scale = (scale.getX() + scale.getY()) / 2;
+	}
+
 	public void setRotation(double degrees) {
 		this.rotation = 0;
 		rotate(degrees);
@@ -312,6 +325,7 @@ public class Sprite {
 		
 		this.width = rotatedWidth;
 		this.height = rotatedHeight;
+		setScale(scale);
 	}
 	
 	public int[] getDimensions() {
@@ -334,7 +348,7 @@ public class Sprite {
 	public int getOriginalHeight() {
 		return this.originalHeight;
 	}
-	
+	public double getScale() {return this.scale;}
 	
 	// other methods
 	

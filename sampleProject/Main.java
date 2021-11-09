@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 import ky.KYscreen;
 import ky.Sprite;
@@ -13,7 +14,9 @@ public class Main extends KYscreen {
 	static String windowTitle = "Project Name";
 	static boolean windowResizable = false;
 	static int fpsCap = 120;
-	
+
+	Sprite background;
+
 	public Main() {
 		super(windowWidth, windowHeight, windowTitle, windowResizable, fpsCap);
 	}
@@ -26,10 +29,10 @@ public class Main extends KYscreen {
 
 	@Override
 	public void start() {
-		Sprite background = new Sprite("SuperToastBrosAssets/background.png", new Vector2D(0, 100), 0);
+		background = new Sprite("SuperToastBrosAssets/background.png", new Vector2D(0, 100), 0);
 		background.setPos(400, 500);
-		background.rescale(2);
 		background.setVisible(true);
+		background.setScale(new Vector2D(1, 2));
 		add(background);
 	}
 
@@ -41,7 +44,6 @@ public class Main extends KYscreen {
 	@Override
 	public void keyPressed(int keyCode) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
