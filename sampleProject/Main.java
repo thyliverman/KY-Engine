@@ -16,6 +16,9 @@ public class Main extends KYscreen {
 	static int fpsCap = 120;
 
 	Sprite background;
+	Player player;
+	double cameraOffset = 100; 
+	boolean cameraFollow = true;
 
 	public Main() {
 		super(windowWidth, windowHeight, windowTitle, windowResizable, fpsCap);
@@ -34,11 +37,20 @@ public class Main extends KYscreen {
 		background.setVisible(true);
 		background.setScale(new Vector2D(1, 2));
 		add(background);
+		
+		player = new Player(windowWidth/2, windowHeight/2, 171, 185, 5);
+		add(player);
+		
+		setDebugMode(true);
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		// logic
+		if(getKeyStatus(KeyEvent.VK_G)) cameraFollow = !cameraFollow;
+		
+		if(!cameraFollow) return; // camera following stuff
+		setCameraPos(player.getX() - getWidth()/2, player.getY() - getHeight()/2 - cameraOffset);
 	}
 
 	@Override
